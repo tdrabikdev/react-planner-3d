@@ -30,7 +30,7 @@ export default function (state, action) {
     case FIT_SELECTION:
       const viewer2D = state.get('viewer2D');
       const newViewer2D = fitSelection(
-        viewer2D, 
+        viewer2D.toJS(), 
         action.value.x, action.value.y, 
         action.value.width, action.value.height
       );

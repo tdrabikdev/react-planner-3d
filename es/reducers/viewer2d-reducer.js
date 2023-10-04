@@ -14,7 +14,7 @@ export default function (state, action) {
       return state.set('mode', MODE_2D_ZOOM_OUT);
     case FIT_SELECTION:
       var viewer2D = state.get('viewer2D');
-      var newViewer2D = fitSelection(viewer2D, action.value.x, action.value.y, action.value.width, action.value.height);
+      var newViewer2D = fitSelection(viewer2D.toJS(), action.value.x, action.value.y, action.value.width, action.value.height);
       return state.merge({
         viewer2D: newViewer2D
       });
