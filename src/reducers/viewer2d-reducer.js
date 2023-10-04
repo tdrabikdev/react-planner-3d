@@ -29,7 +29,12 @@ export default function (state, action) {
 
     case FIT_SELECTION:
       const viewer2D = state.get('viewer2D');
+      const newViewer2D = fitSelection(
+        viewer2D, 
+        action.value.x, action.value.y, 
+        action.value.width, action.value.height
+      );
 
-      return state.merge({viewer2D: fitSelection(viewer2D, ...action.value)});
+      return state.merge({viewer2D: newViewer2D});
   }
 }
