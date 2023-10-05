@@ -64,7 +64,7 @@ export default function Area({ layer, area, catalog }) {
         {area.name}
       </text>
       <text x="0" y="14" transform={`translate(${center[0]} ${center[1]}) scale(1, -1)`} style={STYLE_TEXT}>
-        ({(areaSize / 10000).toFixed(2)} m{String.fromCharCode(0xb2)})
+        ({(areaSize / 10000).toFixed(2)} m<tspan baseline-shift="super" font-size="0.8em">2</tspan>)
       </text>
     </>
   )

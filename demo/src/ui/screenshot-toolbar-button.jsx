@@ -23,7 +23,7 @@ const {
 
 const { ToolbarButton } = ReactPlannerComponents.ToolbarComponents;
 
-export default function ScreenshotToolbarButton({mode}) {
+export default function ScreenshotToolbarButton({ mode }) {
   let { translator } = useContext(ReactPlannerContext);
 
   let imagebrowserDownload = imageUri => {
@@ -83,41 +83,46 @@ export default function ScreenshotToolbarButton({mode}) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     img.crossOrigin = 'anonymous';
-    img.src = `data:image/svg+xml;base64,${window.btoa(serializer.serializeToString(maxWidthSVGElement))}`;
+
+    let svgString = serializer.serializeToString(maxWidthSVGElement);
+    let dataURI = `data:image/svg+xml;base64,${window.btoa(svgString)}`;
+    img.src = dataURI;
 
     img.onload = () => {
       ctx.drawImage(img, 0, 0, maxWidthSVGElement.width.baseVal.value, maxWidthSVGElement.height.baseVal.value);
       imagebrowserDownload(canvas.toDataURL());
     };
-
+    img.onerror = (error) => {
+      console.error('Image load error:', error);
+    };
   };
 
   if ([MODE_3D_FIRST_PERSON, MODE_3D_VIEW].includes(mode)) {
     return (
       <ToolbarButton active={false} tooltip={translator.t('Get Screenshot')} onClick={saveScreenshotToFile}>
-        <RenderSVG/>
+        <RenderSVG />
         Render
       </ToolbarButton>
     );
   }
 
   if ([MODE_IDLE,
-      MODE_2D_ZOOM_IN,
-      MODE_2D_ZOOM_OUT,
-      MODE_2D_PAN,
-      MODE_WAITING_DRAWING_LINE,
-      MODE_DRAGGING_LINE,
-      MODE_DRAGGING_VERTEX,
-      MODE_DRAGGING_ITEM,
-      MODE_DRAWING_LINE,
-      MODE_DRAWING_HOLE,
-      MODE_DRAWING_ITEM,
-      MODE_DRAGGING_HOLE,
-      MODE_ROTATING_ITEM].includes(mode)) {
+    MODE_2D_ZOOM_IN,
+    MODE_2D_ZOOM_OUT,
+    MODE_2D_PAN,
+    MODE_WAITING_DRAWING_LINE,
+    MODE_DRAGGING_LINE,
+    MODE_DRAGGING_VERTEX,
+    MODE_DRAGGING_ITEM,
+    MODE_DRAWING_LINE,
+    MODE_DRAWING_HOLE,
+    MODE_DRAWING_ITEM,
+    MODE_DRAGGING_HOLE,
+    MODE_ROTATING_ITEM].includes(mode)) {
 
     return (
       <ToolbarButton active={false} tooltip={translator.t('Get Screenshot')} onClick={saveSVGScreenshotToFile}>
-        <RenderSVG/>
+        <RenderSVG />
         Render
       </ToolbarButton>
     );
