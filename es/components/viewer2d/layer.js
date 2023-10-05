@@ -15,9 +15,11 @@ export default function Layer(_ref) {
     items = layer.items,
     opacity = layer.opacity;
 
-  // TODO(pg): add holes which should be the holes in areas like stairs
+  // TODO(pg): add holes which should be the holes in areas like stairs or remove if
+  // already taken into account in Area component in viewer2d/area.jsx
   return /*#__PURE__*/React.createElement("g", {
-    opacity: opacity
+    opacity: opacity,
+    "layer-id": layer.id
   }, areas.valueSeq().map(function (area) {
     return /*#__PURE__*/React.createElement(Area, {
       key: area.id,

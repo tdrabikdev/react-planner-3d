@@ -13,9 +13,13 @@ export default function Layer({ layer, scene, catalog }) {
   let { unit, groups } = scene;
   let { lines, areas, vertices, holes, id: layerID, items, opacity } = layer;
 
-  // TODO(pg): add holes which should be the holes in areas like stairs
+  // TODO(pg): add holes which should be the holes in areas like stairs or remove if
+  // already taken into account in Area component in viewer2d/area.jsx
   return (
-    <g opacity={opacity}>
+    <g 
+      opacity={opacity}
+      layer-id={layer.id}
+    >
       {
         areas.valueSeq().map(area =>
           <Area key={area.id} layer={layer} area={area} unit={unit} catalog={catalog} />)
