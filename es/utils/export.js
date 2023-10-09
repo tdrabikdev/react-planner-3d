@@ -1,5 +1,7 @@
+import * as BrowserUtils from './browser';
 import * as GeometryUtils from './geometry';
 import * as GraphInnerCycles from './graph-inner-cycles';
+import * as ImageUtils from './image';
 import * as MathUtils from './math';
 import * as SnapUtils from './snap';
 import * as SnapSceneUtils from './snap-scene';
@@ -7,15 +9,17 @@ import * as history from './history';
 import * as ObjectUtils from './objects-utils';
 import IDBroker from './id-broker';
 import NameGenerator from './name-generator';
-export { GeometryUtils, GraphInnerCycles, MathUtils, SnapUtils, SnapSceneUtils, history, IDBroker, NameGenerator, ObjectUtils };
+export { BrowserUtils, GeometryUtils, GraphInnerCycles, history, IDBroker, ImageUtils, MathUtils, NameGenerator, ObjectUtils, SnapSceneUtils, SnapUtils };
 export default {
+  BrowserUtils: BrowserUtils,
   GeometryUtils: GeometryUtils,
   GraphInnerCycles: GraphInnerCycles,
-  MathUtils: MathUtils,
-  SnapUtils: SnapUtils,
-  SnapSceneUtils: SnapSceneUtils,
   history: history,
   IDBroker: IDBroker,
+  ImageUtils: ImageUtils,
+  MathUtils: MathUtils,
   NameGenerator: NameGenerator,
-  ObjectUtils: ObjectUtils
+  ObjectUtils: ObjectUtils,
+  SnapSceneUtils: SnapSceneUtils,
+  SnapUtils: SnapUtils
 };

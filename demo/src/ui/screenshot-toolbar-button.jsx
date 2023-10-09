@@ -1,7 +1,14 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import RenderSVG from './render.svg';
-import { ReactPlannerContext, ReactPlannerConstants, ReactPlannerComponents } from 'react-planner';
+import { ReactPlannerContext, ReactPlannerConstants, ReactPlannerComponents, ReactPlannerUtils } from 'react-planner';
+
+const {
+  imageBrowserDownload
+} = ReactPlannerUtils.BrowserUtils;
+const {
+  saveSVGtoPngFile
+} = ReactPlannerUtils.ImageUtils;
 
 const {
   MODE_IDLE,
@@ -26,29 +33,13 @@ const { ToolbarButton } = ReactPlannerComponents.ToolbarComponents;
 export default function ScreenshotToolbarButton({ mode }) {
   let { translator } = useContext(ReactPlannerContext);
 
-  let imagebrowserDownload = imageUri => {
-    let fileOutputLink = document.createElement('a');
-
-    let filename = 'output' + Date.now() + '.png';
-    filename = window.prompt('Insert output filename', filename);
-    if (!filename) return;
-
-    fileOutputLink.setAttribute('download', filename);
-    fileOutputLink.href = imageUri;
-    fileOutputLink.style.display = 'none';
-    document.body.appendChild(fileOutputLink);
-    fileOutputLink.click();
-    document.body.removeChild(fileOutputLink);
-  };
-
-
   let saveScreenshotToFile = event => {
     event.preventDefault();
     let canvas = document.getElementsByTagName('canvas')[0];
-    imagebrowserDownload(canvas.toDataURL());
+    imageBrowserDownload(canvas.toDataURL());
   };
 
-  let saveSVGScreenshotToFile = event => {
+  let saveSVGScreenshotToFile = (event) => {
     event.preventDefault();
 
     // First of all I need the svg content of the viewer
@@ -62,40 +53,8 @@ export default function ScreenshotToolbarButton({ mode }) {
       }
     }
 
-    let serializer = new XMLSerializer();
-
-    let img = new Image;
-
-    // I create the new canvas to draw
-    let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('2d');
-
-    // Set width and height for the new canvas
-    let heightAtt = document.createAttribute('height');
-    heightAtt.value = maxWidthSVGElement.height.baseVal.value;
-    canvas.setAttributeNode(heightAtt);
-
-    let widthAtt = document.createAttribute('width');
-    widthAtt.value = maxWidthSVGElement.width.baseVal.value;
-    canvas.setAttributeNode(widthAtt);
-
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    img.crossOrigin = 'anonymous';
-
-    let svgString = serializer.serializeToString(maxWidthSVGElement);
-    let dataURI = `data:image/svg+xml;base64,${window.btoa(svgString)}`;
-    img.src = dataURI;
-
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0, maxWidthSVGElement.width.baseVal.value, maxWidthSVGElement.height.baseVal.value);
-      imagebrowserDownload(canvas.toDataURL());
-    };
-    img.onerror = (error) => {
-      console.error('Image load error:', error);
-    };
-  };
+    saveSVGtoPngFile(maxWidthSVGElement);
+  }
 
   if ([MODE_3D_FIRST_PERSON, MODE_3D_VIEW].includes(mode)) {
     return (

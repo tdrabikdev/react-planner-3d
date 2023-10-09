@@ -1,5 +1,5 @@
-export function browserDownload(file, ext="json") {
-  const typeMap = { json: "text/plain", obj: "model/obj", mtl: "model/mtl	"}
+export function browserDownload(file, ext = "json") {
+  const typeMap = { json: "text/plain", obj: "model/obj", mtl: "model/mtl	" }
 
   if (!typeMap[ext]) return;
 
@@ -11,11 +11,25 @@ export function browserDownload(file, ext="json") {
 
   let data = null
 
-  data = new Blob([file], {type: typeMap[ext]});
+  data = new Blob([file], { type: typeMap[ext] });
 
   let url = window.URL.createObjectURL(data);
   fileOutputLink.setAttribute('download', filename);
   fileOutputLink.href = url;
+  fileOutputLink.style.display = 'none';
+  document.body.appendChild(fileOutputLink);
+  fileOutputLink.click();
+  document.body.removeChild(fileOutputLink);
+}
+
+export function imageBrowserDownload(imageUri, filename) {
+  let fileOutputLink = document.createElement('a');
+
+  filename = window.prompt('Insert output filename', filename);
+  if (!filename) return;
+
+  fileOutputLink.setAttribute('download', filename);
+  fileOutputLink.href = imageUri;
   fileOutputLink.style.display = 'none';
   document.body.appendChild(fileOutputLink);
   fileOutputLink.click();

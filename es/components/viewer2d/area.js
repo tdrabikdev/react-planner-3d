@@ -68,10 +68,7 @@ export default function Area(_ref) {
     y: "14",
     transform: "translate(".concat(center[0], " ").concat(center[1], ") scale(1, -1)"),
     style: STYLE_TEXT
-  }, "(", (areaSize / 10000).toFixed(2), " m", /*#__PURE__*/React.createElement("tspan", {
-    "baseline-shift": "super",
-    "font-size": "0.8em"
-  }, "2"), ")"));
+  }, "(", (areaSize / 10000).toFixed(2), " m", String.fromCharCode(0xb2), ")"));
   return /*#__PURE__*/React.createElement("g", {
     "data-element-root": true,
     "data-prototype": area.prototype,

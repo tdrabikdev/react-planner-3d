@@ -22,6 +22,17 @@ export function browserDownload(file) {
   fileOutputLink.click();
   document.body.removeChild(fileOutputLink);
 }
+export function imageBrowserDownload(imageUri, filename) {
+  var fileOutputLink = document.createElement('a');
+  filename = window.prompt('Insert output filename', filename);
+  if (!filename) return;
+  fileOutputLink.setAttribute('download', filename);
+  fileOutputLink.href = imageUri;
+  fileOutputLink.style.display = 'none';
+  document.body.appendChild(fileOutputLink);
+  fileOutputLink.click();
+  document.body.removeChild(fileOutputLink);
+}
 export function browserUpload() {
   return new Promise(function (resolve, reject) {
     var fileInput = document.createElement('input');
