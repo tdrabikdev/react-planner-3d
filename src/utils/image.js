@@ -17,7 +17,7 @@ export let saveSVGtoFile = (svgElement) => {
     imageBrowserDownload(dataURI, 'screenshot.svg');
 }
 
-export let saveSVGtoPngBase64 = (svgElement) => {
+export let saveSVGtoPngBase64 = async (svgElement) => {
     return new Promise((resolve, reject) => {
         const base64Data = saveSVGtoBase64(svgElement);
         const dataURI = `data:image/svg+xml;base64,${base64Data}`;

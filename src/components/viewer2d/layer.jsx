@@ -18,7 +18,7 @@ export default function Layer({ layer, scene, catalog }) {
   return (
     <g 
       opacity={opacity}
-      layer-id={layer.id}
+      data-layer-id={layer.id}
     >
       {
         areas.valueSeq().map(area =>

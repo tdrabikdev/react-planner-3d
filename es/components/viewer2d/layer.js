@@ -19,7 +19,7 @@ export default function Layer(_ref) {
   // already taken into account in Area component in viewer2d/area.jsx
   return /*#__PURE__*/React.createElement("g", {
     opacity: opacity,
-    "layer-id": layer.id
+    "data-layer-id": layer.id
   }, areas.valueSeq().map(function (area) {
     return /*#__PURE__*/React.createElement(Area, {
       key: area.id,
