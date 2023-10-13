@@ -34,8 +34,8 @@ export let saveSVGtoPngBase64 = async (svgElement) => {
             context.drawImage(image, 0, 0);
 
             let pngDataURI = canvas.toDataURL('image/png');
-            console.log(pngDataURI);
-            resolve(pngDataURI);
+            let pngBase64Data = pngDataURI.replace(/^data:image\/(png|jpg);base64,/, '');
+            resolve(pngBase64Data);
         }
 
         image.onerror = (err) => {
@@ -46,7 +46,8 @@ export let saveSVGtoPngBase64 = async (svgElement) => {
 
 export let saveSVGtoPngFile = (svgElement) => {
     saveSVGtoPngBase64(svgElement)
-        .then((pngDataURI) => {
+        .then((pngBase64Data) => {
+            let pngDataURI = `data:image/png;base64,${pngBase64Data}`;
             imageBrowserDownload(pngDataURI, 'screenshot.png');
         })
         .catch((err) => {
